@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nginx Nana - Gateway Control Hub</title>
+  <meta name="description" content="A futuristic, high-performance gateway configuration and analytics panel for Nginx-Nana. Monitor traffic, simulate load balancing, and visualize server nodes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">NGINX <span class="logo-highlight">NANA</span></span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#overview" class="active">Overview</a></li>
+          <li><a href="#nodes">Proxy Nodes</a></li>
+          <li><a href="#telemetry">Telemetry</a></li>
+          <li><a href="#console">Terminal</a></li>
+        </ul>
+      </nav>
+      <div class="system-status">
+        <span class="pulse-indicator"></span>
+        <span class="status-label">GATEWAY ONLINE</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="dashboard-container">
+    
+    <!-- Hero Panel Section -->
+    <section id="overview" class="dashboard-section hero-section">
+      <div class="hero-content">
+        <span class="badge">NGINX REVERSE PROXY v1.24.0</span>
+        <h1>High Performance <span class="gradient-text">Gateway Control</span></h1>
+        <p class="subtitle">Secure, fast, and resilient routing for microservices. Experience sub-millisecond latency tuning and real-time path load distribution with zero-downtime reloads.</p>
+        
+        <div class="hero-stats">
+          <div class="hero-stat-card">
+            <span class="stat-num" id="req-count">0</span>
+            <span class="stat-lbl">Active Requests</span>
+          </div>
+          <div class="hero-stat-card">
+            <span class="stat-num" id="latency-ms">0.85ms</span>
+            <span class="stat-lbl">Avg Latency</span>
+          </div>
+          <div class="hero-stat-card">
+            <span class="stat-num">99.999%</span>
+            <span class="stat-lbl">Target Uptime</span>
+          </div>
+        </div>
+
+        <div class="cta-group">
+          <button id="toggle-gateway-btn" class="btn btn-primary">
+            <span class="btn-icon">🔌</span> Toggle Gateway Status
+          </button>
+          <button id="trigger-traffic-btn" class="btn btn-secondary">
+            <span class="btn-icon">🔥</span> Inject Test Traffic
+          </button>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="glass-frame">
+          <img src="images/hero_dashboard.png" alt="DevOps Gateway Load Balancing Network Illustration" class="visual-img">
+          <div class="visual-overlay"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Grid Area -->
+    <section id="nodes" class="dashboard-section grid-section">
+      <div class="section-header">
+        <h2>Cluster routing & Nodes</h2>
+        <p>Real-time server distribution pool</p>
+      </div>
+
+      <div class="nodes-grid">
+        <!-- Node 1 -->
+        <div class="node-card" id="node-us-east">
+          <div class="node-header">
+            <div class="node-title">
+              <h3>Proxy Node: US-East</h3>
+              <span class="node-ip">10.0.1.15</span>
+            </div>
+            <span class="node-badge badge-active">ACTIVE</span>
+          </div>
+          <div class="node-details">
+            <div class="progress-bar-container">
+              <span class="progress-label">Load (CPU)</span>
+              <div class="progress-bar"><div class="progress-fill" style="width: 42%;"></div></div>
+            </div>
+            <div class="node-metrics">
+              <div class="m-item"><span>Bandwidth:</span> <strong>640 MB/s</strong></div>
+              <div class="m-item"><span>Active Conn:</span> <strong class="val-conn">3,421</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Node 2 -->
+        <div class="node-card" id="node-eu-west">
+          <div class="node-header">
+            <div class="node-title">
+              <h3>Proxy Node: EU-West</h3>
+              <span class="node-ip">10.0.2.22</span>
+            </div>
+            <span class="node-badge badge-active">ACTIVE</span>
+          </div>
+          <div class="node-details">
+            <div class="progress-bar-container">
+              <span class="progress-label">Load (CPU)</span>
+              <div class="progress-bar"><div class="progress-fill" style="width: 28%;"></div></div>
+            </div>
+            <div class="node-metrics">
+              <div class="m-item"><span>Bandwidth:</span> <strong>410 MB/s</strong></div>
+              <div class="m-item"><span>Active Conn:</span> <strong class="val-conn">1,994</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Node 3 -->
+        <div class="node-card" id="node-ap-south">
+          <div class="node-header">
+            <div class="node-title">
+              <h3>Proxy Node: AP-South</h3>
+              <span class="node-ip">10.0.3.89</span>
+            </div>
+            <span class="node-badge badge-active" id="ap-badge">ACTIVE</span>
+          </div>
+          <div class="node-details">
+            <div class="progress-bar-container">
+              <span class="progress-label">Load (CPU)</span>
+              <div class="progress-bar"><div class="progress-fill" id="ap-cpu-fill" style="width: 61%;"></div></div>
+            </div>
+            <div class="node-metrics">
+              <div class="m-item"><span>Bandwidth:</span> <strong id="ap-bandwidth">910 MB/s</strong></div>
+              <div class="m-item"><span>Active Conn:</span> <strong class="val-conn" id="ap-conn">4,120</strong></div>
+            </div>
+          </div>
+          <div class="node-controls">
+            <button class="node-btn" onclick="toggleApNode()">Shutdown Node</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Telemetry Section -->
+    <section id="telemetry" class="dashboard-section telemetry-section">
+      <div class="telemetry-grid">
+        <div class="telemetry-info">
+          <h2>Advanced Traffic Telemetry</h2>
+          <p>Analyzing inbound protocols, TLS handshakes, and response status distributions. Visualized metrics represent standard requests per second across our microservice gateways.</p>
+          
+          <div class="telemetry-stats">
+            <div class="stat-pill">
+              <span class="dot green"></span>
+              <span>TLS 1.3: <strong>92.4%</strong></span>
+            </div>
+            <div class="stat-pill">
+              <span class="dot blue"></span>
+              <span>HTTP/2: <strong>81.5%</strong></span>
+            </div>
+            <div class="stat-pill">
+              <span class="dot orange"></span>
+              <span>HTTP/3: <strong>14.2%</strong></span>
+            </div>
+          </div>
+
+          <div class="chart-legend">
+            <div class="legend-item"><span class="legend-color c-inbound"></span> Inbound Load</div>
+            <div class="legend-item"><span class="legend-color c-cache"></span> Cache Hits</div>
+          </div>
+        </div>
+
+        <div class="telemetry-chart">
+          <div class="glass-frame">
+            <img src="images/metrics_card.png" alt="Advanced telemetry stats dashboard" class="visual-img">
+            <div class="visual-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Terminal Command Center -->
+    <section id="console" class="dashboard-section terminal-section">
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <div class="window-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="terminal-title">nginx-nana-gateway - bash</span>
+        </div>
+        <div class="terminal-body" id="terminal-output">
+          <div class="terminal-line"><span class="t-prompt">[guest@nginx-nana]$</span> npm start</div>
+          <div class="terminal-line t-success">> nginx-nana-portal@1.0.0 start /home/anshu/Desktop/Devops /nginx-nana</div>
+          <div class="terminal-line t-success">> node server.js</div>
+          <div class="terminal-line">Server is running at http://localhost:3000</div>
+          <div class="terminal-line t-cyan">Gateway initialized. Listening on port 80 (HTTP) & 443 (HTTPS)</div>
+          <div class="terminal-line t-yellow">Binding upstream US-East pool: 10.0.1.15:8080</div>
+          <div class="terminal-line t-yellow">Binding upstream EU-West pool: 10.0.2.22:8080</div>
+          <div class="terminal-line t-yellow">Binding upstream AP-South pool: 10.0.3.89:8080</div>
+        </div>
+        <div class="terminal-input-container">
+          <span class="t-prompt">[guest@nginx-nana]$</span>
+          <input type="text" id="terminal-input" placeholder="Type command (try 'help', 'status', 'clear', 'nodes')..." autofocus>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <p>&copy; 2026 Nginx Nana Gateway Portal. Optimized for high speed load-balancing.</p>
+      <div class="footer-links">
+        <a href="#overview">Documentation</a>
+        <a href="#nodes">Configs</a>
+        <a href="https://github.com" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
